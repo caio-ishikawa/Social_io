@@ -1,5 +1,5 @@
 # Social_io
-[Social_io](http://caioakira.pythonanywhere.com/) is a simple social media website created primarily with Django, and all the pages in it were created with Django templates with the help of some vanilla Javascript for asynchronous loading.
+[Social_io](http://caioakira.pythonanywhere.com/) is a simple social media website created primarily with Django. All the pages in it were created with Django templates with the help of vanilla Javascript for asynchronous loading.
 
 The website features basic social media functionality, allowing the user to create text posts, like and comment on said posts, edit their profile (name, profile picture and bio), as well as follow and unfollow users.
 
@@ -7,13 +7,13 @@ The goal of this project was to obtain a clearer understanding of relational dat
 
 # Functionality
 - Homepage:
-   - Direct to your own profile
+   - Link to your own profile
    - Log out
-   - Search for users
+   - Searchbar for users
    - Read and write posts
    - Like/Unline posts
-   - Comment on posts
-   - Redirect to user profiles by clicking on usernames
+   - read and write comment on posts
+   - Link to user profiles by clicking on usernames
 
 - Profile:
   - Edit your profile
