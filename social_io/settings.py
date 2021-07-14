@@ -28,7 +28,7 @@ SECRET_KEY = 'caio'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['http://caioakira.pythonanywhere.com/']
+ALLOWED_HOSTS = ['http://caioakira.pythonanywhere.com/', '127.0.0.1']
 
 
 # Application definition
