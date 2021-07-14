@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br>
+{% for user in users %}
+    <div class="Box" style="width:80%; margin: auto; padding: 2%">
+        <div class="d-flex">
+            <a href="{% url 'main:other_profile' user.pk%}">
+                <img class="avatar" alt="{{user.username}}" src="{{user.profile.profile_pic.url}}" width="100" height="100" />
+            </a>
+            <div style="margin-left: 2%">
+                <p><strong>Username:</strong> <a href="{% url 'main:other_profile' user.pk%}">@{{user.username}}</a></p>
+                <p><strong>Name:</strong> {{user.profile.profile_name}}</p>
+                <p><strong>Bio:</strong> {{user.profile.profile_bio}}</p>
+            </div>
+        </div>
+        <!-- {% if request.user in user.profile.profile_followers.all %}
+            <a class="btn btn-info" role="button" href="{% url 'main:follow' user.pk%}" stlye="margin-top: 2%; max-width: 100px">Unfollow</a>
+        {% else %}
+            <a class="btn btn-info" role="button" href="{% url 'main:follow' user.pk%}" stlye="margin-top: 2%; max-width: 100px">Follow</a>
+        {% endif %} -->
+        {% if user.pk == request.user.pk %}
+            <a class="btn btn-pimary" role="button" style="margin-top: 2%" href="{% url 'main:profile_edit' user.pk %}">Edit Profile</a>
+            {% else %}
+                {% if request.user in user.profile.profile_followers.all %}
+                    <div style="margin-top:2%">
+                        <a class="btn btn-info" role="button" href="{% url 'main:follow' user.pk%}" stlye="margin-top: 2%; max-width: 100px">Unfollow</a>
+                    </div>
+            {% else %}
+                <div style="margin-top:2%">
+                    <a class="btn btn-info" role="button" href="{% url 'main:follow' user.pk%}" stlye="margin-top: 2%; max-width: 100px">Follow</a>
+                </div>
+            {% endif %} 
+        {% endif %}
+    </div>
+    <br>
+{% endfor %}
+
+{% endblock %}
