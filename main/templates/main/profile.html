@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+<br>
+<div class="Box" style="width:80%; margin: auto; padding: 2%">
+    <div class="d-flex">
+        <img class="avatar" alt="{{user.username}}" src="{{user_info.profile_pic.url}}" width="100" height="100" />
+        <div style="margin-left: 2%">
+            <p>{{user_info.profile_pic.url}}</p>
+            <p>test</p>
+            <p><strong>Username:</strong> @{{user.username}}</p>
+            {% if user_info %}
+                {% for field in user_info %}
+                    <p><strong>Name:</strong> {{field.profile_name}}</p>
+                    <p><strong>Bio:</strong> {{field.profile_bio}}</p>
+                {% endfor %}
+            {% else %}
+            <p>Woops! No details. Edit your profile if you wish to display information!</p>
+            {% endif %}
+        </div>
+    </div>
+    <a class="btn btn-pimary" role="button" style="margin-top: 2%" href="{% url 'main:profile_edit' user.pk %}">Edit Profile</a>
+</div>
+
+<br>
+<div class="Box" style="width: 80%; margin: auto">
+    <div class="Box-header">
+        <p>Posts</p>
+    </div>
+    {% for post in posts %}
+    <div class="Box-row d-flex flex-items-center">
+        <div class="flex-auto">
+            <p>{{post.post_content}}</p>
+        </div>
+        <p style="margin-right: 2%">{{post.post_date}}</p>
+    </div>
+    {% endfor %}
+</div>
+<br>
+<div class="Box" style="width: 80%; margin: auto">
+    <div class="Box-header">
+        <p>Comments</p>
+    </div>
+    {% for comment in comments %}
+    <div class="Box-row d-flex flex-items-center">
+        <div class="flex-auto">
+            <p>{{comment.comment_content}}</p>
+        </div>
+        <p style="margin-right: 2%">{{comment.comment_date}}</p>
+    </div>
+    {% endfor %}
+</div>
+
+
+{% endblock %}

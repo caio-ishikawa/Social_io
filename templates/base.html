@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="https://unpkg.com/@primer/css@^16.0.0/dist/primer.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+</head>
+<body class="color-bg-secondary">
+    <div class="Header">
+        <!-- Text item -->
+        <div class="Header-item Header-item--full">
+          
+         <a href="{% url 'main:homepage' %}">S O C I A L . I O</a> 
+        </div>
+        <!-- Form item  -->
+        <!-- <div class="Header-item">
+          <a class="Header-link" href="#1">Followers</a> 
+        </div>
+        <div class="Header-item Header-item--full">
+          <a class="Header-link" href="#2">Following</a>
+        </div> -->
+        
+        <!-- Image item  -->
+        {% if user.is_authenticated %}
+        <form type="GET"  action="{% url 'main:results' %}">
+          <input class="form-control input-block input-dark" type="text" aria-label="Full-width input" placeholder="Search for users" name="search_user" style="margin-right:28%; width:110%"/>
+        </form>
+        <div class="Header-item" style="margin-left: 2%">
+            <div>
+                <details class="dropdown details-reset details-overlay d-inline-block">
+                  <summary class="btn" aria-haspopup="true">
+                    @{{request.user}}
+                    <div class="dropdown-caret"></div>
+                  </summary>
+              
+                  <ul class="dropdown-menu dropdown-menu-se">
+                    <li><a class="dropdown-item" href="{% url 'main:other_profile' request.user.pk %}">Profile</a></li>
+                    <li><a class="dropdown-item" href="{% url 'main:logout' %}">Log out</a></li>
+                  </ul>
+                </details>
+              </div>
+        </div>
+        {% else %}
+        <div class="Header-item">
+            <a class="btn btn-primary" style="margin-right: 5%" href="{% url 'main:register' %}" role="button">Sign up</a>
+            <a class="btn" href="{% url 'main:login' %}" role="button">Log in</a> 
+        </div>
+        {% endif %}
+      </div>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

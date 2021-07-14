@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load widget_tweaks %}
+{% load static %}
+<script src="{% static 'ExtendComment.js' %}"></script>
+<br>
+<div class="Box color-bg-info" style="width: 70%; margin: auto">
+    <!-- <form method="POST">
+        {% csrf_token %}
+        {% for field in post_form %}
+            {{field|add_class:"form-control input-block"}}
+        {% endfor %}
+        <button>test post</button>
+    </form> -->
+    <div style="width:95%; margin: auto; padding-bottom: 2%; padding-top: 2%">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="input-group">
+                {% for field in post_form %}
+                    {{field|add_class:"form-control input-block"}}
+                {% endfor %}
+            <span class="input-group-button" style="height: 200%">
+                <button class="btn" type="submit" style="height: 120%">
+                <!-- <%= octicon "clippy" %> -->
+                    Post
+                </button>
+            </span>
+            </div>
+        </form>
+    </div>
+</div>
+<br>
+
+<div class="Box color-bg-info" id="big-box" style="width: 70%; margin: auto;">
+    <div class="Box-header color-bg-info">
+        <div class="Header-item" style="margin-left: 2%">
+            <div>
+                <details class="dropdown details-reset details-overlay d-inline-block">
+                  <summary class="btn" aria-haspopup="true">
+                     Sort by 
+                    <div class="dropdown-caret"></div>
+                  </summary>
+              
+                  <ul class="dropdown-menu dropdown-menu-se">
+                    {% if user.is_authenticated %}
+                        <li><a class="dropdown-item" href="{% url 'main:other_profile' request.user.pk %}">New</a></li>
+                        <li><a class="dropdown-item" href="{% url 'main:following' %}">Following</a></li>
+                    <li><a class="dropdown-item" href="{% url 'main:trending' %}">Trending</a></li>
+                    {% endif %}
+                  </ul>
+                </details>
+              </div>
+        </div>
+    </div>
+    {% for post in posts %}
+    <div class="Box" style="margin: 2%">
+            <div style="margin: 2%">
+                <div class="d-flex flex-items-start">
+                    <img class="avatar" src="{{post.post_user.profile.profile_pic.url}}" height=70 width=70>
+                    <div class="flex-auto flex-items-end" style="margin-right: 2%; margin-left: 2%">
+                        <a href="{% url 'main:other_profile' post.post_user.pk %}">
+                            <p class="text-gray-light" style="margin-bottom: 0%;">@{{post.post_user}}</p>
+                        </a>
+                        <p class="f4">{{post.post_content}}</p>
+                    </div>
+                    <p class="f6 bold" style="margin-bottom: 0%">{{post.post_date.day}}/{{post.post_date.month}}
+                </div>
+                <div class="BtnGroup flex-row d-flex" style="margin-left: 0%; margin-top: 2.5%; margin-right: 2%" >
+                    <form action="{% url 'main:like' post.pk %}" method="POST" style="margin-right: 1%">
+                        {% csrf_token %}
+                        <button class='btn btn-sm btn-primary' type="submit" name="post_id" value="{{post.id}}" style="margin-right: 2%; margin-left: 2%">Like <span class="Counter">{{post.post_likes.count}}</span></button>
+                    </form>
+                    <button id="comment_button" class="btn btn-ouline btn-sm" value="{{forloop.counter}}" onclick="extendComment(this.value)">Comment</button>
+                    {% if request.user == post.post_user %}
+                        <form method="POST" action="{% url 'main:delete_post' post.id %}" style="margin-left:1%">
+                            {% csrf_token %}
+                            <button class="btn btn-sm btn-danger" type="submit" style="margin-left: 2%"> delete </button>
+                        </form>
+                    {% endif %}
+                </div>
+                <div id="{{forloop.counter}}" style="margin-left: 0%; margin-top: 1%; display: none;">
+                    <form action="{% url 'main:comment' post.pk%}" method="POST">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            {{field|add_class:"form-control input-block"}}
+                        {% endfor %}
+                        <button class="btn btn-info"name="comment_id" action="submit" style="margin-top: 1%">comment</button>
+                    </form>              
+                    <div style="margin-top: 1%">
+                        <strong style="margin-bottom: 10%">Comments: </strong>
+                        {% for comments in post.comments.all %}
+                            <div class="Box" style="margin-top: 1%">
+                                <div class="row d-flex flex-auto" style="margin-bottom: -1.5%; padding-left: 1%; padding-top: 1%">
+                                    <div class="flex-auto">
+                                        <a href="{% url 'main:other_profile' comments.comment_user.pk%}">
+                                            <p class="text text-small flex-auto" style="margin-bottom: -0.8%">@{{comments.comment_user}}</p>
+                                        </a>
+                                    </div>
+                                    <p class="text text-small" style="margin-right: 1%">{{comments.comment_date}}</p>
+                                </div>
+                                <p style="margin-left: 1%; margin-top: 1%">{{comments.comment_content}}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+<br>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br>
+<div class="Box" style="width:70%; margin: auto; padding: 2%">
+    <div class="d-flex">
+        {% for field in profile%}
+            <img class="avatar" alt="{{user.username}}" src="{{field.profile_pic.url}}" width="100" height="100" />
+        {% endfor %}
+        <div style="margin-left: 2%">
+            <p><strong>Username:</strong> @{{user.username}}</p>
+            {% for field in profile %}
+                <p><strong>Name:</strong> {{field.profile_name}}</p>
+                <p><strong>Bio:</strong> {{field.profile_bio}}</p>
+                {% if user.pk == request.user.pk %}
+                    <p><strong>Followers:</strong> {{field.profile_followers.count}}</p>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    {% if user.pk == request.user.pk %}
+        <a class="btn btn-pimary" role="button" style="margin-top: 2%" href="{% url 'main:profile_edit' user.pk %}">Edit Profile</a>
+    {% else %}
+        <div style="margin-top: 2%">
+            {% for field in profile %}
+                {% if request.user in field.profile_followers.all %}
+                    <a class="btn btn-info" role="button" href="{% url 'main:follow' user.pk%}" stlye="margin-top: 2%; max-width: 100px">Unfollow<span class="Counter">{{field.profile_followers.count}}</span></a>
+                {% else %}
+                    <a class="btn btn-info" role="button" href="{% url 'main:follow' user.pk%}" stlye="margin-top: 2%; max-width: 100px">Follow <span class="Counter"> {{field.profile_followers.count}}</span style="margin-left:1%"></a> 
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+
+<br>
+<div class="Box" style="width: 70%; margin: auto">
+    <div class="Box-header">
+        <p class="h5">Posts</p>
+    </div>
+    {% if posts %}
+        {% for post in posts %}
+        <div class="Box-row d-flex flex-items-center">
+            <div class="flex-auto">
+                <p>{{post.post_content}}</p>
+            </div>
+            <p style="margin-right: 2%">{{post.post_date.day}}/{{post.post_date.month}}/{{post.post_date.year}}</p>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p style="margin:2%">Woops! Looks like {{user.username}} has no posts at this time.</p>
+    {% endif %}
+</div>
+<br>
+<div class="Box" style="width: 70%; margin: auto">
+    <div class="Box-header">
+        <p class="h5">Comments</p>
+    </div>
+    {% if comments %}
+        {% for comment in comments %}
+            <div class="Box-row d-flex flex-items-center">
+                <div class="flex-auto">
+                    <p>{{comment.comment_content}}</p>
+                </div>
+                <p style="margin-right: 2%">{{comment.comment_date.day}}/{{comment.comment_date.month}}/{{comment.comment_date.year}}</p>
+            </div>
+        {% endfor %}
+        {% else %}
+            <p style="margin: 2%">Woops! Lookes like {{user.username}} has no comments at this time.</p>
+    {% endif %}
+</div>
+
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br>
+<div class="Box" style="width: 400px; margin: auto">
+    <div class="Box-header"> 
+        <h3 class="Box-title">Sign up</h3>
+    </div>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="Box-body">
+            <div class="form-group">
+                {% for field in form %}
+                    <div class="form-group-header">
+                    <p>{{field.label_tag}}</p>
+                    {{field}}
+                    </div>
+                {% endfor %}
+                <div class="Box-footer text-left" style="margin-top: 2%">
+                    <button class="btn btn-primary">Sign up</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+{% endblock %}
