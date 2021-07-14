@@ -21,7 +21,7 @@ The goal of this project was to obtain a clearer understanding of relational dat
   - View details from user (name, bio, profile picture)
   - View posts and comments from user
 
-#Technologies Used
+# Technologies Used
 - Django
 - HTML
 - Primer CSS
