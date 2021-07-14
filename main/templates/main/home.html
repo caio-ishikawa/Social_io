@@ -44,7 +44,7 @@
               
                   <ul class="dropdown-menu dropdown-menu-se">
                     {% if user.is_authenticated %}
-                        <li><a class="dropdown-item" href="{% url 'main:other_profile' request.user.pk %}">New</a></li>
+                        <li><a class="dropdown-item" href="{% url 'main:homepage'%}">New</a></li>
                         <li><a class="dropdown-item" href="{% url 'main:following' %}">Following</a></li>
                     <li><a class="dropdown-item" href="{% url 'main:trending' %}">Trending</a></li>
                     {% endif %}
