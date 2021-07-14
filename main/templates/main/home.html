@@ -67,10 +67,14 @@
                     <p class="f6 bold" style="margin-bottom: 0%">{{post.post_date.day}}/{{post.post_date.month}}
                 </div>
                 <div class="BtnGroup flex-row d-flex" style="margin-left: 0%; margin-top: 2.5%; margin-right: 2%" >
-                    <form action="{% url 'main:like' post.pk %}" method="POST" style="margin-right: 1%">
-                        {% csrf_token %}
-                        <button class='btn btn-sm btn-primary' type="submit" name="post_id" value="{{post.id}}" style="margin-right: 2%; margin-left: 2%">Like <span class="Counter">{{post.post_likes.count}}</span></button>
-                    </form>
+                    {% if user.is_authenticated %}
+                        <form action="{% url 'main:like' post.pk %}" method="POST" style="margin-right: 1%">
+                            {% csrf_token %}
+                            <button class='btn btn-sm btn-primary' type="submit" name="post_id" value="{{post.id}}" style="margin-right: 2%; margin-left: 2%">Like <span class="Counter">{{post.post_likes.count}}</span></button>
+                        </form>
+                    {% else %}
+                        <a class="btn btn-primary" href="{% url 'main:login' %}" style="margin-right:2%">Like</a>
+                    {% endif %}
                     <button id="comment_button" class="btn btn-ouline btn-sm" value="{{forloop.counter}}" onclick="extendComment(this.value)">Comment</button>
                     {% if request.user == post.post_user %}
                         <form method="POST" action="{% url 'main:delete_post' post.id %}" style="margin-left:1%">
