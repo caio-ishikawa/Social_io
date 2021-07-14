@@ -49,6 +49,7 @@ decorator==4.4.0
 defusedxml==0.6.0
 distlib==0.3.1
 distributed==2.5.2
+dj-database-url==0.5.0
 Django==3.0.3
 django-cors-headers==3.7.0
 django-crispy-forms==1.12.0
@@ -66,6 +67,7 @@ gevent==1.4.0
 glob2==0.7
 gmpy2==2.0.8
 greenlet==0.4.15
+gunicorn==20.1.0
 h5py==2.9.0
 HeapDict==1.0.1
 html5lib==1.0.1
@@ -181,6 +183,7 @@ pytest-doctestplus==0.4.0
 pytest-openfiles==0.4.0
 pytest-remotedata==0.3.2
 python-dateutil==2.8.0
+python-decouple==3.4
 pytimeparse==1.1.8
 pytz==2019.3
 PyWavelets==1.0.3
@@ -241,6 +244,7 @@ wcwidth==0.1.7
 webencodings==0.5.1
 websocket-client==0.57.0
 Werkzeug==0.16.0
+whitenoise==5.2.0
 widgetsnbextension==3.5.1
 wrapt==1.11.2
 wurlitzer==1.0.3
