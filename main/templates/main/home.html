@@ -84,13 +84,17 @@
                     {% endif %}
                 </div>
                 <div id="{{forloop.counter}}" style="margin-left: 0%; margin-top: 1%; display: none;">
-                    <form action="{% url 'main:comment' post.pk%}" method="POST">
-                        {% csrf_token %}
-                        {% for field in form %}
-                            {{field|add_class:"form-control input-block"}}
-                        {% endfor %}
-                        <button class="btn btn-info"name="comment_id" action="submit" style="margin-top: 1%">comment</button>
-                    </form>              
+                    {% if user.is_authenticated %}
+                        <form action="{% url 'main:comment' post.pk%}" method="POST">
+                            {% csrf_token %}
+                            {% for field in form %}
+                                {{field|add_class:"form-control input-block"}}
+                            {% endfor %}
+                            <button class="btn btn-info"name="comment_id" action="submit" style="margin-top: 1%">comment</button>
+                        </form>              
+                    {% else %}
+                        <p style="margin-top: 2%"><strong>You must be logged in to post comments.</strong></p>
+                    {% endif %}
                     <div style="margin-top: 1%">
                         <strong style="margin-bottom: 10%">Comments: </strong>
                         {% for comments in post.comments.all %}
