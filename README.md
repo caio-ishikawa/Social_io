@@ -26,3 +26,5 @@ The goal of this project was to obtain a clearer understanding of relational dat
 - HTML
 - Primer CSS
 - Javascript
+
+LINK TO LIVE APP: http://caioakira.pythonanywhere.com/
